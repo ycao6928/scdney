@@ -10,14 +10,14 @@ This package contains useful functions for analysis of scRNA-seq data including 
 ## Installation
 
 ```r
-devtools::install_github("taiyunkim/scdney", build_opts = c("--no-resave-data", "--no-manual"))
+devtools::install_github("SydneyBioX/scdney", build_opts = c("--no-resave-data", "--no-manual"))
 library(scdney)
 ```
 
 For `devtools (< 2.0.0)`,
 
 ```r
-devtools::install_github("taiyunkim/scdney", build_vignettes = TRUE)
+devtools::install_github("SydneyBioX/scdney", build_vignettes = TRUE)
 library(scdney)
 ```
 
@@ -25,7 +25,7 @@ library(scdney)
 Building the vignette may take some time. If you wish not to create the vignette during installation, try:
 
 ```r
-devtools::install_github("taiyunkim/scdney")
+devtools::install_github("SydneyBioX/scdney")
 library(scdney)
 ```
 
