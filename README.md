@@ -265,11 +265,10 @@ points(1, dat.processed[marker, which(colnames(dat.processed) %in% "E13.5_C20")]
 ```
 
 
-# Paper
+# References
 
-†: Corresponding author
-
-* **scClust**: Kim, T., Chen, I., Lin, Y., Wang, A., Yang, J., & Yang, P.† (2018) Impact of similarity metrics on single-cell RNA-seq data clustering. ***Briefings in Bioinformatics*** <a href="https://doi.org/10.1093/bib/bby076">[https://doi.org/10.1093/bib/bby076]</a>
+* **scClust**: 
+Kim, T., Chen, I., Lin, Y., Wang, A., Yang, J., & Yang, P.† (2018) Impact of similarity metrics on single-cell RNA-seq data clustering. ***Briefings in Bioinformatics*** <a href="https://doi.org/10.1093/bib/bby076">[https://doi.org/10.1093/bib/bby076]</a>
 
 
 
