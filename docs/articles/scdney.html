@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scdney</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -47,6 +47,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/scDC.html">scDC: single cell differential composition analysis</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -94,6 +106,14 @@ Introduction
   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(mclust)
   <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
 })</code></pre></div>
+<pre><code>## Warning: replacing previous import 'ggplot2::scale_discrete_manual' by
+## 'ggridges::scale_discrete_manual' when loading 'scdney'</code></pre>
+<pre><code>## Warning: replacing previous import 'Matrix::cov2cor' by 'stats::cov2cor'
+## when loading 'scdney'</code></pre>
+<pre><code>## Warning: replacing previous import 'Matrix::toeplitz' by 'stats::toeplitz'
+## when loading 'scdney'</code></pre>
+<pre><code>## Warning: replacing previous import 'Matrix::update' by 'stats::update' when
+## loading 'scdney'</code></pre>
 <pre><code>## Warning: package 'dplyr' was built under R version 3.5.2</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load dataset</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"GSE82187.sample"</span>)
@@ -529,43 +549,48 @@ marker &lt;-<span class="st"> </span>Ery[<span class="dv">2</span>]
 ## [1] dplyr_0.8.0.1 mclust_5.4.2  scdney_0.1.1 
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] nlme_3.1-137        fs_1.2.5            lubridate_1.7.4    
-##   [4] doParallel_1.0.14   RColorBrewer_1.1-2  rprojroot_1.3-2    
-##   [7] prabclus_2.2-6      tools_3.5.1         backports_1.1.3    
-##  [10] DT_0.5              R6_2.4.0            rpart_4.1-13       
-##  [13] Hmisc_4.2-0         lazyeval_0.2.1      colorspace_1.3-2   
-##  [16] trimcluster_0.1-2.1 nnet_7.3-12         withr_2.1.2        
-##  [19] tidyselect_0.2.5    gridExtra_2.3       compiler_3.5.1     
-##  [22] htmlTable_1.13.1    xml2_1.2.0          desc_1.2.0         
-##  [25] labeling_0.3        diptest_0.75-7      scales_1.0.0       
-##  [28] checkmate_1.9.1     DEoptimR_1.0-8      mvtnorm_1.0-8      
-##  [31] robustbase_0.93-2   randomForest_4.6-14 pkgdown_1.3.0      
-##  [34] commonmark_1.5      stringr_1.4.0       digest_0.6.18      
-##  [37] foreign_0.8-71      rmarkdown_1.11      base64enc_0.1-3    
-##  [40] pkgconfig_2.0.2     htmltools_0.3.6     htmlwidgets_1.3    
-##  [43] rlang_0.3.1         rstudioapi_0.9.0    shiny_1.2.0        
-##  [46] generics_0.0.2      jsonlite_1.6        crosstalk_1.0.0    
-##  [49] acepack_1.4.1       dendextend_1.9.0    ModelMetrics_1.2.2 
-##  [52] magrittr_1.5        modeltools_0.2-22   Formula_1.2-3      
-##  [55] Matrix_1.2-14       Rcpp_1.0.0          munsell_0.5.0      
-##  [58] viridis_0.5.1       stringi_1.3.1       whisker_0.3-2      
-##  [61] yaml_2.2.0          MASS_7.3-50         flexmix_2.3-14     
-##  [64] plyr_1.8.4          recipes_0.1.4       grid_3.5.1         
-##  [67] promises_1.0.1      parallel_3.5.1      crayon_1.3.4       
-##  [70] doSNOW_1.0.16       lattice_0.20-35     splines_3.5.1      
-##  [73] knitr_1.20          pillar_1.3.1        igraph_1.2.4       
-##  [76] clusteval_0.1       fpc_2.1-11.1        reshape2_1.4.3     
-##  [79] codetools_0.2-15    stats4_3.5.1        glue_1.3.0.9000    
-##  [82] evaluate_0.12       latticeExtra_0.6-28 data.table_1.12.0  
-##  [85] httpuv_1.4.5        foreach_1.4.4       gtable_0.2.0       
-##  [88] purrr_0.3.1         kernlab_0.9-27      amap_0.8-16        
-##  [91] assertthat_0.2.0    ggplot2_3.1.0       gower_0.1.2        
-##  [94] mime_0.6            prodlim_2018.04.18  xtable_1.8-3       
-##  [97] e1071_1.7-0.1       later_0.7.5         roxygen2_6.1.1     
-## [100] class_7.3-14        survival_2.42-6     viridisLite_0.3.0  
-## [103] timeDate_3043.102   tibble_2.0.1        snow_0.4-3         
-## [106] iterators_1.0.10    memoise_1.1.0       cluster_2.0.7-1    
-## [109] lava_1.6.3          caret_6.0-81        ipred_0.9-8</code></pre>
+##   [1] amap_0.8-16         minqa_1.2.4         colorspace_1.3-2   
+##   [4] class_7.3-14        modeltools_0.2-22   ggridges_0.5.1     
+##   [7] rprojroot_1.3-2     htmlTable_1.13.1    base64enc_0.1-3    
+##  [10] fs_1.2.5            rstudioapi_0.9.0    mice_3.4.0         
+##  [13] roxygen2_6.1.1      DT_0.5              flexmix_2.3-14     
+##  [16] prodlim_2018.04.18  manipulate_1.0.1    mvtnorm_1.0-8      
+##  [19] lubridate_1.7.4     xml2_1.2.0          codetools_0.2-15   
+##  [22] splines_3.5.1       doParallel_1.0.14   robustbase_0.93-2  
+##  [25] knitr_1.20          jsonlite_1.6        Formula_1.2-3      
+##  [28] nloptr_1.2.1        caret_6.0-81        clusteval_0.1      
+##  [31] broom_0.5.0         kernlab_0.9-27      cluster_2.0.7-1    
+##  [34] shiny_1.2.0         compiler_3.5.1      backports_1.1.3    
+##  [37] assertthat_0.2.0    Matrix_1.2-14       lazyeval_0.2.1     
+##  [40] later_0.7.5         acepack_1.4.1       htmltools_0.3.6    
+##  [43] tools_3.5.1         igraph_1.2.4        gtable_0.2.0       
+##  [46] glue_1.3.0.9000     reshape2_1.4.3      Rcpp_1.0.0         
+##  [49] trimcluster_0.1-2.1 pkgdown_1.3.0       nlme_3.1-137       
+##  [52] crosstalk_1.0.0     iterators_1.0.10    fpc_2.1-11.1       
+##  [55] timeDate_3043.102   gower_0.1.2         stringr_1.4.0      
+##  [58] lme4_1.1-18-1       mime_0.6            dendextend_1.9.0   
+##  [61] DEoptimR_1.0-8      pan_1.6             MASS_7.3-50        
+##  [64] scales_1.0.0        ipred_0.9-8         promises_1.0.1     
+##  [67] doSNOW_1.0.16       parallel_3.5.1      expm_0.999-2       
+##  [70] RColorBrewer_1.1-2  yaml_2.2.0          scClust_0.2.0      
+##  [73] memoise_1.1.0       gridExtra_2.3       ggplot2_3.1.0      
+##  [76] rpart_4.1-13        latticeExtra_0.6-28 stringi_1.3.1      
+##  [79] desc_1.2.0          randomForest_4.6-14 foreach_1.4.4      
+##  [82] e1071_1.7-0.1       checkmate_1.9.1     boot_1.3-20        
+##  [85] lava_1.6.3          rlang_0.3.1         pkgconfig_2.0.2    
+##  [88] commonmark_1.5      prabclus_2.2-6      evaluate_0.12      
+##  [91] lattice_0.20-35     purrr_0.3.1         labeling_0.3       
+##  [94] recipes_0.1.4       htmlwidgets_1.3     tidyselect_0.2.5   
+##  [97] plyr_1.8.4          magrittr_1.5        R6_2.4.0           
+## [100] snow_0.4-3          DescTools_0.99.28   generics_0.0.2     
+## [103] Hmisc_4.2-0         mitml_0.3-7         pillar_1.3.1       
+## [106] whisker_0.3-2       foreign_0.8-71      withr_2.1.2        
+## [109] survival_2.42-6     nnet_7.3-12         tibble_2.0.1       
+## [112] crayon_1.3.4        jomo_2.6-7          rmarkdown_1.11     
+## [115] viridis_0.5.1       grid_3.5.1          data.table_1.12.0  
+## [118] ModelMetrics_1.2.2  digest_0.6.18       diptest_0.75-7     
+## [121] xtable_1.8-3        httpuv_1.4.5        tidyr_0.8.3        
+## [124] stats4_3.5.1        munsell_0.5.0       viridisLite_0.3.0</code></pre>
 </div>
   </div>
 

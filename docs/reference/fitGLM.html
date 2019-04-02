@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plotSimlrEval — plotSimlrEval • scdney</title>
+<title>fitGLM — fitGLM • scdney</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="plotSimlrEval — plotSimlrEval" />
+<meta property="og:title" content="fitGLM — fitGLM" />
 
-<meta property="og:description" content="plot evaluations returned from evalScClustBench" />
+<meta property="og:description" content="Visualising the CI using barplot" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,40 +109,68 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plotSimlrEval</h1>
+    <h1>fitGLM</h1>
     
-    <div class="hidden name"><code>plotSimlrEval.Rd</code></div>
+    <div class="hidden name"><code>fitGLM.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>plot evaluations returned from <em>evalScClustBench</em></p>
+    <p>Visualising the CI using barplot</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotSimlrEval</span>(<span class='no'>simlr.eval</span>, <span class='kw'>eval.method</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"NMI"</span>, <span class='st'>"FM"</span>, <span class='st'>"ARI"</span>, <span class='st'>"Jaccard"</span>))</pre>
+    <pre class="usage"><span class='fu'>fitGLM</span>(<span class='no'>res</span>, <span class='no'>condition</span>, <span class='kw'>subject_effect</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pairwise</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>fixed_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>simlr.eval</th>
-      <td><p>An object returned from <em>evalScClustBench</em></p></td>
+      <th>res</th>
+      <td><p>results from <code>scDC_noClustering</code>, <code>scDC_clustering</code> function</p></td>
     </tr>
     <tr>
-      <th>eval.method</th>
-      <td><p>Evaluation method to be plotted. Available options are: NMI (default), FM, Jaccard and ARI.</p></td>
+      <th>condition</th>
+      <td><p>a vector indicate the condition associate the results</p></td>
+    </tr>
+    <tr>
+      <th>subject_effect</th>
+      <td><p>A logical input for whether fit the subject effect</p></td>
+    </tr>
+    <tr>
+      <th>pairwise</th>
+      <td><p>A logical input for whether the subject in different condition are paired</p></td>
+    </tr>
+    <tr>
+      <th>fixed_only</th>
+      <td><p>A logical input for whether only fiftting the fixed effect GLM model.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>A logical input for whether print the progress.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot object</p>
+    <p>return GLM results</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'>## Loading example data
 
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>scDC</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"sim"</span>)
+
+<span class='no'>cellTypes</span> <span class='kw'>=</span> <span class='no'>sim</span>$<span class='no'>sim_cellTypes</span>
+<span class='no'>subject</span> <span class='kw'>=</span> <span class='no'>sim</span>$<span class='no'>sim_subject</span>
+<span class='no'>res_scDC</span> <span class='kw'>=</span> <span class='fu'><a href='scDC_noClustering.html'>scDC_noClustering</a></span>(<span class='no'>cellTypes</span>, <span class='no'>subject</span>,
+<span class='kw'>calCI</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>calCI_method</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"BCa"</span>, <span class='st'>"percentile"</span>))
+<span class='fu'><a href='barplotCI.html'>barplotCI</a></span>(<span class='no'>res_scDC</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"cond1"</span>,<span class='st'>"cond1"</span>,<span class='st'>"cond2"</span>,<span class='st'>"cond2"</span>))
+
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -155,6 +183,8 @@
       <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Yingxin Lin</p>
   </div>
 </div>
 
