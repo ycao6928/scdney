@@ -24,7 +24,7 @@ multiAdaSampling(dat, lab)
 \item{balance}{logical flag to down sample large cell types classes to the median of all class sizes.}
 }
 \value{
-A final prediction and the model are returned as a list.
+A final prediction, probabilities for each cell type and the model are returned as a list.
 }
 \description{
 Performs multiple Adaptive sampling to train a classifier model
