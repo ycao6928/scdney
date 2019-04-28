@@ -406,6 +406,9 @@ summary(res_GLM$pool_res_random)
 ```
 
 ### scDC (with clustering)  
+scDC has two options of performing cell type proportion estimates, without clustering and with clustering. 
+When performed without clustering,the estimation does not take into account for the variability from clustering algorithm, and only takes variability from the population into account. 
+When performed with clustering, the estimation takes both into consideration.
 
 ```r
 res_scDC_clust = scDC_clustering(expresMat, cellTypes, 
