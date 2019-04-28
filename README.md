@@ -276,11 +276,181 @@ points(1, dat.processed[marker, which(colnames(dat.processed) %in% "E13.5_C20")]
 
 ```
 
+## Section 3 -  single cell differential composition analysis with scDC
+
+### Load in example data 
+
+```r
+data("sim")
+exprsMat <- sim$sim_exprsMat
+subject <- sim$sim_subject
+cellTypes <- sim$sim_cellTypes
+cond <- sim$sim_cond
+
+dim(exprsMat)
+#> [1] 500 260
+table(subject, cellTypes)
+#>                   cellTypes
+#> subject            n1 n4
+#>   Cond1_replicate1 24 21
+#>   Cond1_replicate2 30 27
+#>   Cond2_replicate1 57 18
+#>   Cond2_replicate2 66 17
+table(cond, cellTypes)
+#>        cellTypes
+#> cond     n1  n4
+#>   Cond1  54  48
+#>   Cond2 123  35
+```
+### Perform scDC (without clustering)
+`nboot` (number of bootstraps) is set to be 10000 by default. This is the recommended value for achieving the resolution required by confidence interval. In here, we set nboot=50 just for illustration purpose.   
+
+The code can be run in parallel environment by passing in the `ncores` argument. By default , ncores = 1.
+
+```r
+res_scDC_noClust <- scDC_noClustering(cellTypes, subject, calCI = TRUE, 
+                                     calCI_method = c("percentile", "BCa", "multinom"),
+                                     nboot = 50)
+#> [1] "Calculating sample proportion..."
+#> [1] "Calculating bootstrap proportion..."
+#> [1] "Calculating percentile ..." "Calculating BCa ..."       
+#> [3] "Calculating multinom ..."  
+#> [1] "Calculating z0 ..."
+#> [1] "Calculating acc ..."
+```
+
+
+### Visualisation
+scDC provides two forms of visualisation, barplot and density plot.   
+The second argument is the label of each sample. In this data, there are 4 samples of cond1 and 4 samples of cond2. 
+
+```r
+barplotCI(res_scDC_noClust, c("cond1","cond1","cond1","cond1",
+                              "cond2","cond2","cond2","cond2"))
+                              
+```
+
+
+
+![alt text](./img/barplot.jpg)
+
+
+
+```r
+densityCI(res_scDC_noClust, c("cond1","cond1","cond1","cond1",
+                              "cond2","cond2","cond2","cond2"))
+#> Picking joint bandwidth of 0.0239
+#> Picking joint bandwidth of 0.0239
+                              
+```
+![alt text](./img/densityplot.jpg)
+
+### Fitting GLM
+Cell count output from each bootstrap can be fitted using GLM, which analyse the significance of variables associated with cell counts. The GLM models are pooled using Rubin's rules to provide an overall estimates of statistics.
+
+
+```r
+res_GLM <- fitGLM(res_scDC_noClust, c("cond1","cond1","cond1","cond1",
+                                      "cond2","cond2","cond2","cond2"), 
+                  pairwise = FALSE)
+#> Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =
+#> control$checkConv, : Model failed to converge with max|grad| = 0.0151388
+#> (tol = 0.001, component 1)
+#> [1] "fitting GLM... 10"
+#> Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =
+#> control$checkConv, : Model failed to converge with max|grad| = 0.00202052
+#> (tol = 0.001, component 1)
+#> [1] "fitting GLM... 20"
+#> Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =
+#> control$checkConv, : Model failed to converge with max|grad| = 0.0127663
+#> (tol = 0.001, component 1)
+#> [1] "fitting GLM... 30"
+#> Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =
+#> control$checkConv, : Model failed to converge with max|grad| = 0.00690679
+#> (tol = 0.001, component 1)
+#> [1] "fitting GLM... 40"
+#> [1] "fitting GLM... 50"
+                              
+```
+
+
+### Summary of GLM results
+#### Fixed effect
+```r
+summary(res_GLM$pool_res_fixed)
+#>                           estimate std.error  statistic        df
+#> (Intercept)              3.1766364 0.2021867 15.7114008 0.9065430
+#> cellTypesn4             -0.1421987 0.2929871 -0.4853411 0.5553828
+#> condcond2                0.9811378 0.2385603  4.1127457 0.9450767
+#> subjectCond1_replicate2  0.2363888 0.1994143  1.1854153 1.1998800
+#> subjectCond2_replicate1 -0.1013525 0.1593158 -0.6361736 1.1998800
+#> cellTypesn4:condcond2   -1.0794396 0.3994029 -2.7026332 0.5714735
+#>                            p.value
+#> (Intercept)             0.02454555
+#> cellTypesn4             0.70113140
+#> condcond2               0.11938361
+#> subjectCond1_replicate2 0.41965889
+#> subjectCond2_replicate1 0.62431043
+#> cellTypesn4:condcond2   0.19079656
+```
+
+
+
+```r
+summary(res_GLM$pool_res_random)
+#>                         estimate std.error  statistic        df    p.value
+#> (Intercept)            3.3018092 0.1687007 19.5719937 1.2957214 0.01194922
+#> cellTypesn4           -0.1422120 0.2929826 -0.4853939 0.9236613 0.69342565
+#> condcond2              0.8065714 0.1969060  4.0962264 1.3747009 0.09891140
+#> cellTypesn4:condcond2 -1.0794020 0.3993927 -2.7026081 0.9504796 0.16732621
+```
+
+### scDC (with clustering)  
+
+```r
+res_scDC_clust = scDC_clustering(expresMat, cellTypes, 
+                                   subject, calCI = TRUE, 
+                                   calCI_method = c("percentile", "BCa", "multinom"))
+```
+
+### Visualisation
+
+```r
+barplotCI(res_scDC_clust, c("cond1","cond1","cond1","cond1",
+                            "cond2","cond2","cond2","cond2")))
+densityCI(res_scDC_clust, c("cond1","cond1","cond1","cond1",
+                            "cond2","cond2","cond2","cond2")))
+```
+
+### Fitting GLM
+
+```r
+res_GLM <- fitGLM(res_scDC_noClust,
+                  c("cond1","cond1","cond1","cond1",
+                    "cond2","cond2","cond2","cond2"), pairwise = FALSE)
+```
+
+
+### Summary of GLM results
+
+#### Fixed effect
+
+```r
+summary(res_GLM$pool_res_fixed)
+```
+
+
+#### Random effect 
+```r
+summary(res_GLM$pool_res_random)
+```
+
+
+
 
 # References
 
 * **scClust**: 
 
 Kim, T., Chen, I., Lin, Y., Wang, A., Yang, J., & Yang, P.† (2018) Impact of similarity metrics on single-cell RNA-seq data clustering. ***Briefings in Bioinformatics*** <a href="https://doi.org/10.1093/bib/bby076">[https://doi.org/10.1093/bib/bby076]</a>
-
 
