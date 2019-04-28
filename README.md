@@ -332,7 +332,7 @@ barplotCI(res_scDC_noClust, c("cond1","cond1","cond1","cond1",
 
 
 
-![alt text](./img/barplot.jpg)
+![alt text](./img/barplot.png)
 
 
 
@@ -343,7 +343,7 @@ densityCI(res_scDC_noClust, c("cond1","cond1","cond1","cond1",
 #> Picking joint bandwidth of 0.0239
                               
 ```
-![alt text](./img/densityplot.jpg)
+![alt text](./img/densityplot.png)
 
 ### Fitting GLM
 Cell count output from each bootstrap can be fitted using GLM, which analyse the significance of variables associated with cell counts. The GLM models are pooled using Rubin's rules to provide an overall estimates of statistics.
